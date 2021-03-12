@@ -1,0 +1,179 @@
+1. Anaconda 설치 후, Anaconda Prompt에서 다음 명령어 실행
+
+C:\Users\[사용자명]> conda create -n py35 python=3.5 # 파이썬 3.5환경 구성
+C:\Users\[사용자명]> activate py35 # py35환경 시작
+
+(py35) C:\Users\[사용자명]> python -m pip install --upgrade pip
+(py35) C:\Users\[사용자명]> conda install tensorflow
+(py35) C:\Users\[사용자명]> conda install notebook
+(py35) C:\Users\[사용자명]> conda install pandas
+(py35) C:\Users\[사용자명]> conda install matplotlib
+(py35) C:\Users\[사용자명]> conda install scikit-learn
+(py35) C:\Users\[사용자명]> conda install keras
+(py35) C:\Users\[사용자명]> pip install pywin32
+
+2. Jupyter 노트북을 실행
+(py35) C:\Users\[사용자명]> jupyter notebook
+
+- CarDrivingIncidentInfo.csv를 D://training_data 디렉터리에 복사(없으면 디렉터리 생성)
+- CarDrivingIncidentInfo_Test.csv를 D://test_data 디렉터리에 복사(없으면 디렉터리 생성)
+
+- smartcar_dnn_model.py 복붙
+###그림 8.21 라이브러리 임포트 및 학습 데이터 로드##################################################################
+
+import tensorflow as tf
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from time import time
+from tensorflow.python.keras.callbacks import TensorBoard
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_curve, roc_auc_score, auc
+from keras.utils import to_categorical
+
+df = pd.read_csv('D:/training_data/CarDrivingIncidentInfo.csv')
+
+###그림 8.22 학습 데이터 전처리##################################################################
+
+X = df.iloc[:, :-1].values
+Y = df.iloc[:, -1].values
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=1)
+
+Y_train = to_categorical(Y_train)
+Y_test = to_categorical(Y_test)
+
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+###그림 8.23 DNN 모델 구성 및 요약 정보 출력##################################################################
+
+model = Sequential([
+    Dense(10, input_dim=10, activation='relu'),
+    Dense(20, activation='relu'),
+    Dropout(0.25),
+    Dense(10, activation='relu'),
+    Dense(3, activation='softmax')
+])
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+model.summary()
+
+###그림 8.25 DNN 모델 학습##################################################################
+
+tensorboard = keras.callbacks.TensorBoard(log_dir='./graph', histogram_freq=0, write_graph=True, write_images=True)
+
+hist  = model.fit(X_train, Y_train, batch_size=2000, epochs=50, callbacks=[tensorboard], validation_data=(X_test, Y_test))
+
+###그림 8.26 DNN 모델을 학습한 결과##################################################################
+
+score = model.evaluate(X_test, Y_test, verbose=0)
+print(model.metrics_names)
+print(score)
+
+###그림 8.27 DNN 모델의 학습 결과 시각화##################################################################
+
+fig, loss_ax = plt.subplots()
+acc_ax = loss_ax.twinx()
+
+loss_ax.plot(hist.history['loss'], 'y', label='train loss')
+loss_ax.plot(hist.history['val_loss'], 'r', label='val loss')
+acc_ax.plot(hist.history['acc'], 'b', label='train acc')
+acc_ax.plot(hist.history['val_acc'], 'g', label='val acc')
+
+loss_ax.set_xlabel('epoch')
+
+loss_ax.set_ylabel('loss')
+loss_ax.legend(loc='lower right')
+
+acc_ax.set_ylabel('accuracy')
+acc_ax.legend(loc='upper right')
+
+plt.show()
+
+###그림 8.28 DNN 모델 예측 결과 평가 – ROC 커브##################################################################
+
+y_predict_result = model.predict(X_test)
+
+fpr, tpr, thresholds = roc_curve (Y_test.ravel(), y_predict_result.ravel())
+roc_auc = auc(fpr, tpr)
+
+plt.clf()
+plt.figure(figsize = (9, 7))
+plt.plot(fpr, tpr, color='navy', lw=10, label='ROC Curve (AUC = %0.2f)' % roc_auc)
+plt.plot([0, 1], [0, 1], color='red', lw=2, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.0])
+plt.rcParams['font.size'] = 12
+plt.title('[ ROC Curve ]')
+plt.xlabel('Specificity-False Positive Rate')
+plt.ylabel('Sensitivity-True Positive Rate')
+plt.legend(loc="lower right")
+plt.grid(True)
+plt.show()
+
+###그림 8.29 DNN 모델 저장##################################################################
+
+from keras.models import load_model
+
+model.save('D://models/smartcar_dnn_model.h5')
+
+3. 텐서보드를 이용한 학습 결과 시각화
+C:\Users\[사용자명]> activate py35
+(py35) C:\Users\[사용자명]> tensorboard --logdir ./graph
+
+(*텐서보드 접속 URL : http://[컴퓨터명]:6006)
+
+4. 플라스크를 이용한 웹 애플리케이션 구축
+C:\Users\[사용자명]> activate py35
+(py35) C:\Users\[사용자명]> pip install flask
+
+1) Anaconda Navigator를 실행해서 Spyder를 Launch 한다
+2) Spyder에 아래 내용을 입력
+# -*- coding: utf-8 -*-
+
+import flask
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+
+from flask import Flask, jsonify, request
+from keras.models import load_model
+
+
+app = Flask(__name__)
+
+global graph
+graph = tf.get_default_graph()
+model = load_model('C:/models/smartcar_dnn_model.h5')
+   
+
+@app.route('/smartcar/predict',  methods=["GET","POST"])
+def predict():
+    data = {"success": False}
+
+    params = flask.request.json
+    if (params == None):
+        params = flask.request.args
+
+    # if parameters are found, return a prediction
+    if (params != None):
+        x=pd.DataFrame.from_dict(params, orient='index').transpose()
+    
+        with graph.as_default():
+            
+            data["prediction"] = str(model.predict(x).argmax())
+            data["success"] = True
+
+    # return a response in json format 
+    return flask.jsonify(data)    
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=9001)
+    
+    
+

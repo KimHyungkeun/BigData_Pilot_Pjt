@@ -1,0 +1,3 @@
+데이터베이스이름 : oozie_oozie_server
+사용자이름 : oozie_oozie_server
+암호 : bNyAxr44Du
