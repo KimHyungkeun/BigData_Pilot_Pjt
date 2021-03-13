@@ -1,3 +1,0 @@
-db이름 : hue2
-사용자이름 : hue2
-암호 : BJvmF0PkwU

@@ -1,3 +1,0 @@
-데이터베이스 이름 : hive
-사용자이름 : hive
-암호 : WtobaGNQtC
