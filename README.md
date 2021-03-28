@@ -1,10 +1,12 @@
 # 빅데이터 파일럿 프로젝트
 
 - 참고서적 : [실무로 배우는 빅데이터 기술 2nd](https://github.com/wikibook/bigdata2nd)
+- 스마트카로 부터 발생하는 데이터를 가상 시뮬레이터를 통해 작동시켜 스마트카 정보상태와 스마트카 운전자 정보상태의 데이터를 수집합니다.
+ 
 
 # 1. 가상머신설정 
 * 가상 하둡 클러스터 환경을 제작하기 위한 과정
-- Oracle Virtual Box (2대, server01, server02)
+- Oracle Virtual Box : 2대 (hostname : server01, server02)
 - OS : CentOS 6
 - RAM : (server01 : 5GB, server02 : 3GB)
 
@@ -16,26 +18,26 @@
 
 # 3. 빅데이터 수집 
 * 데이터 발생을 위한 시뮬레이터를 가동
-- Flume
-- Kafka
+- Flume : Source -> Channel -> Sink 의 구조를 가지며, 데이터를 수집하기 위한 기능을 담당 
+- Kafka : 대규모 발생의 메시지성 데이터를 중계. 데이터를 전송하는 Provider와 데이터를 소비하는 Consumer로 나뉘며 이를 중계하는 Broker가 중간에 존재
 
 # 4. 빅데이터 적재
 * 발생되는 데이터를 저장시킴
-- HDFS(Hadoop) 
-- Zookeeper : 분산 코디네이터. 분산 환경에서 작동되는 작업들을 감시, 감독한다
-- HBase
-- Redis
+- HDFS(Hadoop) : 파일을 블록단위로 나누어서 각 클러스터에 분산 저장
+- Zookeeper : 분산 코디네이터. 분산 환경에서 작동되는 작업들을 감시, 감독
+- HBase : 데이터를 Key-Value 구조로 단순화하고, 도큐먼트 형식의 제약사항이 적은 스키마 모델로 만들어 놓은 NoSQL의 유형
+- Redis : 데이터를 RAM에 저장하는 In-memory 구조를 가지며, 저장사항을 기억하기 위한 Snapshot을 통해 데이터 손실을 방지
 
 # 5. 빅데이터 탐색 
 * 적재된 데이터를 다양한 방면으로 검색
-- Hive : 하둡 에코시스템내의 SQL 쿼리엔진
+- Hive : 하둡에 적재된 데이터를 DBMS 방식으로 접근하여 다루기 위한 SQL 쿼리엔진
 - Spark : In-memory 방식을 통해 느린속도의 MapReduce보다 데이터를 더욱 효율적으로 처리
-- Oozie : 워크플로우 지정
+- Oozie : 워크플로우를 지정
 - Hue : HDFS 및 쿼리엔진등을 Web UI를 통해 간편하게 다룰 수 있도록 한다
 
 # 6. 빅데이터 분석 
 - Impala : Hive 쿼리보다도 더 빠른 실시간 분석을 위한 쿼리엔진. 대용량 배치처리보다는 ad-hoc 쿼리를 통한 빠른 질의결과를 요구한다
-- Zeppelin 
+- Zeppelin : R과 HDFS를 서로 연결하여 원활한 데이터 분석 작업을 진행하기위한 툴. Spark를 기반으로 한다. 
 
 # 7. 분석환경 확장 : R을 이용한 데이터 분석 진행
 
