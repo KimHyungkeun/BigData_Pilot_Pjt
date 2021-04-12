@@ -2,21 +2,21 @@ insert into table Managed_SmartCar_Symptom_Info
 select 
        t1.car_number,
        t1.speed_p_avg_by_carnum,
-       case
+       case -- 가속 페달
          when (abs((t1.speed_p_avg_by_carnum - t3.speed_p_avg) / t4.speed_p_std))  >  2 
            then 'abnormal'
          else   'normal'
        end
        as speed_p_symptom_score,
        t1.break_p_avg_by_carnum,
-       case
+       case -- 브레이크 페달
          when (abs((t1.break_p_avg_by_carnum - t3.break_p_avg) / t4.break_p_std))  >  2 
            then 'abnormal'
          else   'normal'
        end
        as break_p_symptom_score,
        t2.steer_a_count,
-       case
+       case -- 운전대
          when (t2.steer_a_count)  >   2000
            then 'abnormal'
          else   'normal'

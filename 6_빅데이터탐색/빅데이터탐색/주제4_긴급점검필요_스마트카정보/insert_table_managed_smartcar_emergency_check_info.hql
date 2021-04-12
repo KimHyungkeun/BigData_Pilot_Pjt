@@ -11,6 +11,7 @@ select
 from 
          (select distinct car_number as car_number, biz_date from managed_smartcar_status_info  where biz_date = '${working_day}') t1 
 
+-- 타이어 점검
 left outer join (   select 
                        car_number,
                        avg(tire_fl) as tire_fl_avg , 
@@ -23,6 +24,7 @@ left outer join (   select
                     having  tire_fl_avg < 80 or tire_fr_avg < 80 or  tire_bl_avg < 80 or tire_br_avg < 80 ) t2  
 on t1.car_number = t2.car_number
 
+-- 라이트 점검
 left outer join (  select 
                         distinct car_number,
                         'Light Check' as symptom
@@ -30,6 +32,7 @@ left outer join (  select
                     where biz_date = '${working_day}' and (light_fl = '2' or light_fr = '2' or light_bl = '2' or light_br = '2')) t3 
 on t1.car_number = t3.car_number
 
+-- 엔진 점검
 left outer join (   select 
                        distinct car_number,
                       'Engine Check' as symptom
@@ -37,6 +40,7 @@ left outer join (   select
                     where biz_date = '${working_day}' and engine = 'C' ) t4
 on t1.car_number = t4.car_number
 
+-- 브레이크 점검
 left outer join (   select 
                         distinct car_number,
                         'Brake Check' as symptom
@@ -45,6 +49,7 @@ left outer join (   select
      
 on t1.car_number = t5.car_number
 
+-- 배터리 점검
 left outer join (   select 
                         car_number,
                         avg(battery) as battery_avg,
