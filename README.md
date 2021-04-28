@@ -2,7 +2,7 @@
 
 - 참고서적 : [실무로 배우는 빅데이터 기술 2nd](https://github.com/wikibook/bigdata2nd)
 - 시뮬레이터를 작동시켜 스마트카 정보상태와 스마트카 운전자 정보상태의 데이터를 수집, 적재하는 상황입니다.
-https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Architecture.jpg
+![Architecture](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Architecture.jpg)
 
 # 1. 가상머신설정 
 * 가상 하둡 클러스터 환경을 제작하기 위한 과정
