@@ -101,11 +101,13 @@ public class SmartCarDriverTopology {
 		
 		
 		// Redis Bolt
+		// Redis의 클라이언트를 이용하기 위해 JedisPoolConfig를 사용. 레디스 서버 주소와 포트 정보를 Config로 설정하고, 해당 Config를 이용해 RedisBolt 객체를 생성
 		String redisServer = "server02.hadoop.com";
 		int redisPort = 6379;
 		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig.Builder().setHost(redisServer).setPort(redisPort).build();
 		RedisBolt redisBolt = new RedisBolt(jedisPoolConfig);
-		
+		// 생성한 RedisBolt 객체를 스톰의 Topology에 등록
+		// EsperBolt로 부터 데이터를 전달받기 위해 그루핑명을 "esperBolt"로 설정. ( 3)단계에서 설정한 이름 )
 		driverCarTopologyBuilder.setBolt("REDIS", redisBolt, 1).shuffleGrouping("esperBolt");
 
 		return driverCarTopologyBuilder.createTopology();

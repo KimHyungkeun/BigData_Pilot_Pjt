@@ -45,7 +45,7 @@ public class RedisClient extends Thread{
 				
 				System.out.println("\n[ Try No." + cnt++ + "]");
 
-				if(overSpeedCarList.size() > 0) {
+				if(overSpeedCarList.size() > 0) { // 레디스에는 날짜를 key로 해서 과속 차량의 데이터셋이 저장됨. 키(날짜)에 해당되는 과속 차량 번호가 발생하면 즉시 가져와서 출력
 					for (String list : overSpeedCarList) {
 						System.out.println(list);
 					}
@@ -53,7 +53,7 @@ public class RedisClient extends Thread{
 					
 					jedis.del(key);
 				}else{
-					System.out.println("\nEmpty Car List...\n");
+					System.out.println("\nEmpty Car List...\n"); // Redis에서 가져온 키의 데이터를 삭제
 				}
 
 				System.out.println("################################################");
