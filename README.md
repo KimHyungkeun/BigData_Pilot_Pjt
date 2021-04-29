@@ -19,9 +19,10 @@
 # 3. 빅데이터 수집 
 * 데이터 발생을 위한 시뮬레이터를 가동
 ![FlumeKafka](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Flume_Kafka_Flow.png)
-![Kafka_Storm](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Kafka_Storm_Flow.png)
 - Flume : Source -> Channel -> Sink 의 구조를 가지며, 데이터를 수집하기 위한 기능을 담당 
 - Kafka : 대규모 발생의 메시지성 데이터를 중계. 데이터를 전송하는 Producer와 데이터를 소비하는 Consumer로 나뉘며 이를 중계하는 Broker가 중간에 존재
+
+![Kafka_Storm](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Kafka_Storm_Flow.png)
 - Storm : 데이터를 인메모리 상에서 병렬 처리하기 위한 소프트웨어. Kafka로 부터 받은 데이터를 각각 HBase, Redis로 나누어 보낸다.
 - Esper : 실시간 스트리밍 데이터의 복잡한 이벤트 처리가 필요할 때 사용하는 룰 엔진. (평균시속이 80km/h가 넘는 차량을 Redis에 담는다.)
 
