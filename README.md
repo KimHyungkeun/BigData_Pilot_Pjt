@@ -35,9 +35,9 @@
 
 # 5. 빅데이터 탐색 
 * 적재된 데이터를 다양한 방면으로 검색
+![Hive](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Hive_Flow.png)
 - Hive : 하둡에 적재된 데이터를 DBMS 방식으로 접근하여 다루기 위한 SQL 쿼리엔진
 - Spark : In-memory 방식을 통해 느린속도의 MapReduce보다 데이터를 더욱 효율적으로 처리
-![Hive](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Hive_Flow.png)
 - Oozie : 워크플로우를 지정
 - Hue : HDFS 및 쿼리엔진등을 Web UI를 통해 간편하게 다룰 수 있도록 한다
 
