@@ -1,7 +1,7 @@
 # 빅데이터 파일럿 프로젝트
 
 - 참고서적 : [실무로 배우는 빅데이터 기술 2nd](https://github.com/wikibook/bigdata2nd)
-- 시뮬레이터를 작동시켜 스마트카 정보상태와 스마트카 운전자 정보상태의 데이터를 수집, 적재하는 상황입니다.
+- 시뮬레이터를 작동시켜 스마트카 상태 정보와 스마트카 운전자 운행 정보를 수집, 적재하는 상황입니다.
 ![Architecture](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Architecture.png)
 
 # 1. 가상머신설정 
