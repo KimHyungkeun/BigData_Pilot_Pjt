@@ -42,9 +42,11 @@
 - Hue : HDFS 및 쿼리엔진등을 Web UI를 통해 간편하게 다룰 수 있도록 한다
 
 # 6. 빅데이터 분석 
-- Impala : Hive 쿼리보다도 더 빠른 실시간 분석을 위한 쿼리엔진. 대용량 배치처리보다는 ad-hoc 쿼리를 통한 빠른 질의결과를 요구한다
+- Impala : Hive 쿼리보다도 더 빠른 실시간 분석을 위한 쿼리엔진. 대용량 배치처리보다는 ad-hoc 쿼리를 통한 빠른 질의결과를 요구한다.
+- 아래 그림은 스마트카 운행 지역별 평균 속도가 가장 높았던 스마트카 차량을 출력한 것이다.
 ![Impala](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Impala_Graph.png)
 - Zeppelin : R과 HDFS를 서로 연결하여 원활한 데이터 분석 작업을 진행하기위한 툴. Spark를 기반으로 한다. 
+- 아래 그림은 스마트카 운행 지역별 평균 속도가 가장 높았던 스마트카 차량을 출력한 것이다.
 ![Zeppelin](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Zeppelin_Graph.png)
 
 
