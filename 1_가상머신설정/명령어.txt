@@ -111,7 +111,7 @@ $ vi /etc/hostname
 
 -------------------------------------------------------------------------------
 
-$ yum updaye -y // yum 최신 업데이트
+$ yum update -y // yum 최신 업데이트
 $ yum install yum-utils -y // Cloudera 저장소 추가
 
 
