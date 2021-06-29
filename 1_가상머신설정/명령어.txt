@@ -46,10 +46,12 @@ NETWORKING IPV6=no
 HOSTNAME=server01.hadoop.com
 
 8. 
-$ vi /etc/selinux/config # config 파일에서 SELINUX를 "SELINUX=disabled"로 수정
+$ vi /etc/selinux/config # config 파일에서 SELINUX를 "SELINUX=disabled"로 수정. (selinux란 security-enhanced linux의 약자로서 시스템 액세스 권한을 효과적으로 제어할 수 있게하는 보안 아키텍처)
 
 // CentOS6에서는 iptable이였으나, CentOS7에서는 firewall로 대신함
 # 참고 : http://openuiz.blogspot.com/2019/09/centos-7x-port.html
+
+// iptables(centos 6), firewalld(centos 7) 모두 방화벽을 가리키며, 방화벽 기능을 해제한다.
 CentOS6 버전
 /*
 $ service iptables stop # iptables 중지 명령
@@ -66,12 +68,24 @@ $ systemctl mask firewalld
 
 $ sysctl -w vm.swappiness100 # vm swappiness 사용 제어 설정
 $ vi /etc/sysctl.conf # sysctl.conf 파일에서 "vm.swappiness=100" 설정을 추가
+# vm.swappiness = 0 => 스왑 사용 안함
+# vm.swappiness = 1 => 스왑 사용 최소화
+# vm.swappiness = 60 => 기본값
+# vm.swappiness = 100 => 적극적으로 스왑 사용
+# 메모리 여유가 충분할 경우 vm.swappiness = 10 정도를 권고한다.
+
+
 $ vi /etc/rc.local # rc.local 파일에서 아래 명령어를 추가
  echo never > /sys/kernel/mm/transparent_hugepage/enabled
  echo never > /sys/kernel/mm/transparent_hugepage/defrag
+ # Linux는 메모리에 대한 관리를 Page 단위로 사용하며, 기본 page는 4096Byte(4KB)로 고정된다.
+ # 이 때, 페이지의 크기를 확대하는 방법이 도입되었는데 이것이 hugepage이다.
+ # 그리고 이런 hugepage를 자동 관리 해주는 기능이 transparent_hugepage(THP)이며 대용량 사이즈의 페이지를 응용프로그램이 필요로 할때 쓴다.
 
-$ vi /etc/security/limits.conf # limits.conf 파일에서 아래의 파일 디스크립터 설정을 추가
-root soft nofile 6553
+$ vi /etc/security/limits.conf # limits.conf 파일에서 아래의 파일 디스크립터 설정을 추가, 리눅스 사용자별 오픈 파일 최대 갯수를 늘리는 것임.
+# (nofile) root 및 모든 사용자당 최대 파일 오픈 갯수를 65536개로 지정
+# (nproc) root 및 모든 사용자당 최대 사용할 수 있는 프로세스의 갯수를 32768로 지정
+root soft nofile 65536
 root hard nofile 65536
 * soft nofile 65536
 * hard nofile 65536
