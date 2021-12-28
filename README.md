@@ -8,11 +8,11 @@
 * 가상 하둡 클러스터 환경을 제작하기 위한 과정
 - Oracle Virtual Box : 2대 (hostname : server01, server02)
 - OS : CentOS 6
-- RAM : (server01 : 5GB, server02 : 3GB)
+- RAM : (server01 : 3GB, server02 : 3GB 저사양 환경 진행)
 
 # 2. Cloudera Manager 설치 
 * Hadoop 서비스를 모니터링하기위한 서비스
-- Cloudera Manager 설치 
+- Cloudera Manager 설치 (Version CDH 6.3.2)
 - CDH 설치 (Cloudera에서 제공하는 Hadoop ecosystem)
 - 2020년 10월 이후, 정책의 변경으로 인해 개인적인 제품구매가 불가능하여 글쓴이가 제공하는 가상머신 및 설치방법을 통해 설치
 
