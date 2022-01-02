@@ -3,6 +3,14 @@
 $ yum install -y gcc*
 $ yum install -y tcl
 
+(2021 CentOS 6버전 유지관리업데이트 지원기간이 끝나서 위 yum이 안 먹힐 수 있음)
+$ getconf LONG_BIT # 본인 컴퓨터는 64비트 확인
+64Bit :
+$ echo "https://vault.centos.org/6.10/os/x86_64/" > /var/cache/yum/x86_64/6/base/mirrorlist.txt
+$ echo "http://vault.centos.org/6.10/extras/x86_64/" > /var/cache/yum/x86_64/6/extras/mirrorlist.txt
+$ echo "http://vault.centos.org/6.10/updates/x86_64/" > /var/cache/yum/x86_64/6/updates/mirrorlist.txt
+참고 : https://suzxc2468.tistory.com/200
+
 2. 레디스 5.0.7을 내려받아 빌드 및 설치를 진행
 $ cd /home/pilot-pjt
 $ wget http://download.redis.io/releases/redis-5.0.7.tar.gz
