@@ -66,3 +66,7 @@ $ service storm-ui status
 
 10. 스톰 UI 접속
 http://server02.hadoop.com:8088
+
+* 스톰 Topology 배포시, 하단의 명령어를 실행한다. bigdata.smartcar.storm-1.0.jar 파일은 제작자 제공의 파일이다
+$ cd /home/pilot-pjt/working
+$ storm jar bigdata.smartcar.storm-1.0.jar com.wikibook.bigdata.smartcar.storm.SmartCarDriverTopology DriverCarInfo
