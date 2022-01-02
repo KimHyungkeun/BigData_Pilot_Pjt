@@ -34,6 +34,7 @@
 - HDFS(Hadoop) : 파일을 블록단위로 나누어서 각 클러스터에 분산 저장
 
 2) 실시간 처리(Real-Time Processing)
+![Kafka_Storm](https://github.com/KimHyungkeun/BigData_Pilot_Pjt/blob/main/Pictures/Kafka_Storm_Flow.png)
 - HBase : 데이터를 Key-Value 구조로 단순화하고, 도큐먼트 형식의 제약사항이 적은 스키마 모델로 만들어 놓은 NoSQL의 유형
 - Redis : 데이터를 RAM에 저장하는 In-memory 구조를 가지며, 저장사항을 기억하기 위한 Snapshot을 통해 데이터 손실을 방지
 (Redis에서는 시속 80km/h를 초과하는 차량에 대해서만 기록을 한다)
