@@ -58,11 +58,11 @@ steer_angle : 핸들 방향
 $ hbase(main):001:0> scan 'DriverCarInfo', {COLUMNS=>['cf1:car_number','cf1:area_number'], FILTER=>"RowFilter(=,'regexstring:30106102') AND SingleColumnValueFilter('cf1', 'area_number',=,'regexstring:D04')"}
 
 5. 레디스 확인
+$ cd /home/pilot-pjt/working
+$ java -cp bigdata.smartcar.redis-1.0.jar com.wikibook.bigdata.smartcar.redis.OverSpeedCarInfo 20160103
 $ redis-cli
 $ 127.0.0.1:6379> smembers 20160103 # 차량중에서 30초 윈도우 타임동안 평균 80km/h 이상을 초과(과속)한 차량들 만을 골라낸다
 
-$ cd /home/pilot-pjt/working
-$ java -cp bigdata.smartcar.redis-1.0.jar com.wikibook.bigdata.smartcar.redis.OverSpeedCarInfo 20160103
 
 6. 시뮬레이터 종료
 $ ps -ef | grep smartcar.log
