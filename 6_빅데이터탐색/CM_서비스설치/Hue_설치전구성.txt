@@ -16,4 +16,4 @@ $ bash -c "source /opt/rh/python27/enable; pip install psycopg==2.6.2 --ignore-i
 $ sudo yum install epel-release # epel 저장소를 먼저 만든다
 $ yum -y update # 기본 패키지들을 업데이트한다
 $ yum -y intall python-pip으로 재설치 시도
-https://jjig810906.tistory.com/6
+참고 : https://jjig810906.tistory.com/6
